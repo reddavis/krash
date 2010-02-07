@@ -1,0 +1,12 @@
+Krash
+========
+
+Tiny Sinatra app implementing the Hoptoad API to proxy exceptions to pluggable notifiers.
+
+currently very experimental
+
+
+TODO
+---------
+
+* README
