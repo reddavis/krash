@@ -1,2 +1,3 @@
+config.ru
 vendor/gems
 bin
