@@ -5,14 +5,13 @@ require "krash/notifiers/sms"
 
 Krash.configure do
 
-  set :access_key, "018e5282be7b34beecd8"
-  
+  set :access_key, "rt8sqwvu7b44rtx3xwqxxnvqxxn"
   use Krash::Notifiers::Codebase do 
   
     priority_id 20658
     status_id 28658
     user "user"
-    api_key "api_key"
+    api_key "key"
     
   end
   
