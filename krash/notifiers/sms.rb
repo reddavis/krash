@@ -13,7 +13,7 @@ module Krash
       
       def notify(args)
         return false unless args[:exception][:message] =~ @config.only
-        clickatell.send(@config.number, args[:exception][:message])
+        clickatell.send(@config.number, "#{args[:application][:project]}: #{args[:exception][:message]}")
       end
       
       def clickatell

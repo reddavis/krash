@@ -89,7 +89,7 @@ module Krash
           :"status-id" => @config.status_id
         }
         
-        CodebaseProject.new(:user => @config.user, :api_key => @config.api_key, :project => args[:api_key]).create_ticket(ticket)
+        CodebaseProject.new(:user => @config.user, :api_key => @config.api_key, :project => args[:application][:project]).create_ticket(ticket)
       end
       
     end
