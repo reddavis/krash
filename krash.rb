@@ -2,10 +2,11 @@ require File.dirname(__FILE__) + '/vendor/gems/environment'
 Bundler.require_env
 
 require "krash/configuration"
+require "krash/hoptoad_parser"
 require "krash/app"
 
 module Krash
-  @config = Configuration.new
+  @config = Configuration.new { parser Krash::HoptoadParser }
   @notifiers = []
   
   def self.configure(&block)
