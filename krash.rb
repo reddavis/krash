@@ -1,10 +1,5 @@
-begin
-  require 'rubygems'
-rescue LoadError
-end
-require 'nokogiri'
-require 'httparty'
-require 'sinatra/base'
+require File.dirname(__FILE__) + '/vendor/gems/environment'
+Bundler.require_env
 
 require "krash/configuration"
 require "krash/app"
