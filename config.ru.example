@@ -27,4 +27,6 @@ Krash.configure do
 
 end
 
+# wann see Rack::ShowExceptions? 
+# use Rack::ShowExceptions
 run Krash::App
