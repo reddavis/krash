@@ -13,7 +13,9 @@ module Krash
       
       def notify(args)
         return false unless args[:exception][:message] =~ @config.only
-        clickatell.send(@config.number, "#{args[:application][:project]}: #{args[:exception][:message]}")
+        [config.numbers].flatten.each do |number|
+          clickatell.send(number, "#{args[:application][:project]}: #{args[:exception][:message]}")
+        end
       end
       
       def clickatell
