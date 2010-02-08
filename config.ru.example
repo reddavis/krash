@@ -21,9 +21,17 @@ Krash.configure do
   #  password "password"
   #  api_key "api_key"
   #  only /.*/
-  #  number "+4917622747893"
+  #  numbers "+4917622747893", "+49...."
   #  
   #end
+  
+  #use Krash::Notifiers::Iphone do 
+  #  
+  #  api_keys "xxxxx", "xxxx"
+  #  only /.*/
+  #  
+  #end
+  
 
 end
 
