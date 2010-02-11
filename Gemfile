@@ -8,3 +8,7 @@ gem 'nokogiri', '1.4.1'
 gem 'httparty', '0.5.2'
 gem 'reddavis-clickatell', :require => "clickatell"
 gem 'prowl', '0.1.3'
+
+group :test do
+  gem "rspec"
+end

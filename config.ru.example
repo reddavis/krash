@@ -1,4 +1,4 @@
-require "krash"
+require "lib/krash"
 
 require "krash/notifiers/codebase"
 require "krash/notifiers/sms"
