@@ -12,6 +12,9 @@ Bundler.require(:default)
 require "krash/configuration"
 require "krash/hoptoad_parser"
 require "krash/app"
+#require 'krash/notifiers/codebase'
+#require 'krash/notifiers/iphone'
+#require 'krash/notifiers/sms'
 
 module Krash
   @config = Configuration.new { parser Krash::HoptoadParser }
