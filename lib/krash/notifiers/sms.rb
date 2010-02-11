@@ -23,5 +23,6 @@ module Krash
         Clickatell::Text.new(@config.user, @config.password, @config.api_key)
       end
     end
+    
   end
 end

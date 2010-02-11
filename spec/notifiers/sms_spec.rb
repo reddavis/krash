@@ -23,7 +23,6 @@ describe Krash::Notifiers::Sms do
     
     it "should notify if the exception message matches a certain pattern" do
       clickatell = mock(:clickatell)
-      exception_message = exception
       @notifier.config.only = /\d/
     
       @notifier.should_receive(:clickatell).and_return(clickatell)

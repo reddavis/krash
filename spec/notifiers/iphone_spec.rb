@@ -12,14 +12,24 @@ describe Krash::Notifiers::Iphone do
   end
   
   describe "Notification" do
-    it "should not notify only if the exception message matches not a certain pattern"
+    it "should not notify if the exception matches does not match the pattern" do
+      Prowl.should_not_receive(:add)
+      @notifier.config.only = /\d/  # Set the pattern to match
+      @notifier.notify(:exception => {:message => "not number"} ).should == false
+    end
     
-    it "should notify if the exception message matches a certain pattern"
-    
-    it "should use prowl to send notifications"
-    
-    it "should send exception message as notification body"
-    
+    it "should notify if the exception message matches a certain pattern" do
+      @notifier.config.only = /\d/
+      
+      Prowl.should_receive(:add).with(hash_including({
+                                                      :event => "Exception in #{exception[:application][:project]}",
+                                                      :application => 'Krash!',
+                                                      :apikey => @default_config.api_keys,
+                                                      :description => exception[:exception][:message]
+                                                    }))
+      
+      @notifier.notify(exception)
+    end
   end
 
 end
