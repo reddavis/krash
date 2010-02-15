@@ -1,3 +1,5 @@
+$:.unshift(File.dirname(__FILE__) + '/../lib')
+
 begin
   # Require the preresolved locked set of gems.
   require File.expand_path('../.bundle/environment', __FILE__)
