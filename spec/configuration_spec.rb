@@ -2,17 +2,8 @@ require "spec_helper"
 require "krash/configuration"
 
 describe Krash::Configuration do
-  
-  before do
-    @test_configuration = {:user => "joe", :password => "123", :key => "321"}
-    @default_config = {:holly => "shit"}
-    @configuration = Krash::Configuration.new do
-      holly "shit"
-    end
-  end
-  
-  describe "saving configuration data" do
     
+  describe "saving configuration data" do
     it "should accept a block to save the configuration" do
       c = Krash::Configuration.new do 
         omg "holly shit"
@@ -32,16 +23,23 @@ describe Krash::Configuration do
       c.options.should == {:omg => "holly shit"}
     end
     
-    it "should allow seaving configuration like a hash" do
+    it "should allow saving configuration like a hash" do
       c = Krash::Configuration.new
       c["omg"] = "yeah"
       c.options.should == {:omg => "yeah"}
     end
-    
   end
   
   
   describe "reading configuration data" do
+    before do
+      @test_configuration = {:user => "joe", :password => "123", :key => "321"}
+      @default_config = {:holly => "shit"}
+      
+      @configuration = Krash::Configuration.new do
+        holly "shit"
+      end
+    end
     
     it "should return nil as default" do
       @configuration.is_not_set.should == nil
@@ -66,7 +64,6 @@ describe Krash::Configuration do
     it "should allow reading configuration like a hash" do
       @configuration["holly"].should == "shit"
     end
-    
   end
 
 end

@@ -13,7 +13,8 @@ module Krash
       
       def notify(args)
         return false unless args[:exception][:message] =~ @config.only
-        [config.numbers].flatten.each do |number|
+        
+        [@config.numbers].flatten.each do |number|
           clickatell.send(number, "#{args[:application][:project]}: #{args[:exception][:message]}")
         end
       end
@@ -22,5 +23,6 @@ module Krash
         Clickatell::Text.new(@config.user, @config.password, @config.api_key)
       end
     end
+    
   end
 end

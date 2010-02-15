@@ -10,6 +10,7 @@ module Krash
       
       def notify(args)
         return false unless args[:exception][:message] =~ @config.only
+        
         [config.api_keys].flatten.each do |key|
           Prowl.add(:apikey => key,
                     :application => "Krash!",
@@ -18,13 +19,7 @@ module Krash
                   )
         end
       end
-      
-      def prowl_config
-        {
-          :apikey => config.api_key,
-          :application => "Krash!"
-        }
-      end
     end
+    
   end
 end
