@@ -1,6 +1,5 @@
 require "spec_helper"
 require "krash"
-require "krash/notifiers/sms"
 
 describe Krash do
   it "should call #notify on every registed notifier and pass the arguments hash" do
@@ -34,7 +33,9 @@ describe Krash do
     end
   end
   
-  it "should set config options in a Configuration object"
+  it "should set config options in a Configuration object" do
+    Krash.config.should be_a(Krash::Configuration)
+  end
   
   def argument_hash
     argument_hash = {:a => 'b'}
