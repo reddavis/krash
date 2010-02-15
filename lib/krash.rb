@@ -19,7 +19,7 @@ require 'krash/notifiers/iphone'
 require 'krash/notifiers/sms'
 
 module Krash
-  @config = Configuration.new { parser Krash::HoptoadParser }
+  @config = Configuration.new { parser HoptoadParser }
   @notifiers = []
   
   def self.configure(&block)
