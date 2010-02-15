@@ -17,13 +17,26 @@ describe Krash do
       end
     end
     
-    argument_hash = {:a => 'b'}
-    
     sms_mock.should_receive(:notify).twice.with(argument_hash)
     Krash.notify(argument_hash)
   end
   
-  it "should initialize a new notifier and add it to the notifiers array"
+  it "should initialize a new notifier" do
+    sms_mock = mock('sms')
+    Krash::Notifiers::Sms.should_receive(:new).and_return(sms_mock)
+    
+    Krash.use(Krash::Notifiers::Sms) do
+      numbers 123
+      user "user"
+      password "passwd"
+      api_key "key"
+      only /.*/
+    end
+  end
   
   it "should set config options in a Configuration object"
+  
+  def argument_hash
+    argument_hash = {:a => 'b'}
+  end
 end
