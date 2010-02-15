@@ -6,7 +6,7 @@ require "krash/notifiers/sms"
 Krash.configure do
 
   set :access_key, "rt8sqwvu7b44rtx3xwqxxnvqxxn"
-  use Krash::Notifiers::Codebase do 
+  use Krash::Notifiers::Codebase::Base do 
   
     priority_id 20658
     status_id 28658
