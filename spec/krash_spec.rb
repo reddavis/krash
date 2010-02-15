@@ -38,6 +38,6 @@ describe Krash do
   end
   
   def argument_hash
-    argument_hash = {:a => 'b'}
+    {:a => 'b'}
   end
 end
