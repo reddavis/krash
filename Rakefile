@@ -20,6 +20,6 @@ end
 
 desc "Runs the RSpec Test Suite"
 Spec::Rake::SpecTask.new(:spec) do |r|
-  r.spec_files = FileList.new('spec/*_spec.rb', 'spec/**/*_spec.rb')
+  r.spec_files = FileList.new('spec/*_spec.rb', 'spec/**/*_spec.rb').uniq
   r.spec_opts = ['--color']
 end
