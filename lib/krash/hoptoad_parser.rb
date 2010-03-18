@@ -26,7 +26,7 @@ module Krash
       }
     end
     
-    def new_error?
+    def new?
       xml.xpath("/group/notices-count").text.to_i == 1 ? true : false
     end
     

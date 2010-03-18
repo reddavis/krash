@@ -48,7 +48,7 @@ describe Krash::HoptoadParser do
     end
     
     it "should notice its a new error" do
-      @parser.new_error?.should be_true
+      @parser.new?.should be_true
     end
   end
   
@@ -58,7 +58,7 @@ describe Krash::HoptoadParser do
     end
     
     it "should notice its an old error" do
-      @parser.new_error?.should be_false
+      @parser.new?.should be_false
     end
   end
   

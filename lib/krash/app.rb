@@ -5,12 +5,14 @@ module Krash
     
     post "/notifier_api/v2/notices*" do
       
-      parser = Krash.config.parser.new(request.body)
+      exception = Krash.config.parser.new(request.body)
             
-      halt(401, "go away!") unless parser.application[:access_key] == Krash.config.access_key.to_s
+      halt(401, "go away!") unless exception.application[:access_key] == Krash.config.access_key.to_s
       
-      run_later do
-        Krash.notify :application => parser.application, :exception => parser.exception, :raw => request.body
+      if exception.new?
+        run_later do
+          Krash.notify :application => exception.application, :exception => exception.exception, :raw => request.body
+        end
       end
       
       # whatever happens we currently just say everything is great. ;)
