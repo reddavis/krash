@@ -5,6 +5,7 @@ module Krash
       @data = data
     end
     
+    # This isn't part of the hoptoad API anymore: http://help.hoptoadapp.com/faqs/api-2/api-overview
     def application
       @application_settings ||= begin
         node = xml.xpath("/notice/api-key").text
@@ -14,12 +15,19 @@ module Krash
     
     def exception
       {
-        :class => xml.xpath("/notice/error/class").text,
-        :message => xml.xpath("/notice/error/message").text,
-        :backtrace => xml.xpath("/notice/error/backtrace").to_s,
-        :request => xml.xpath("/notice/request").to_s,
-        :environemt => xml.xpath("/notice/server-environment").to_s
+        :class => xml.xpath("/group/error-class").text,
+        :message => xml.xpath("/group/error-message").text,
+        :backtrace => xml.xpath("/group/backtrace").text,
+        :request => xml.xpath("/group/request").text,
+        :environment => xml.xpath("/group/rails-env").text,
+        :file => xml.xpath("/group/file").text,
+        :controller => xml.xpath("/group/controller").text,
+        :action => xml.xpath("/group/action").text
       }
+    end
+    
+    def new_error?
+      xml.xpath("/group/notices-count").text.to_i == 1 ? true : false
     end
     
     def xml
