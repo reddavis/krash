@@ -1,3 +1,5 @@
+require 'krash/extensions/run_later'
+
 module Krash
   class App < Sinatra::Base
     
@@ -8,7 +10,9 @@ module Krash
       halt(401, "go away!") unless parser.application[:access_key] == Krash.config.access_key.to_s
       
       # TODO: would be cool to do this asynchronous
-      Krash.notify :application => parser.application, :exception => parser.exception, :raw => request.body
+      run_later do
+        Krash.notify :application => parser.application, :exception => parser.exception, :raw => request.body
+      end
       
       # whatever happens we currently just say everything is great. ;)
       "Notification forwarded"
