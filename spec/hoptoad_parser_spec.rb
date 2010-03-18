@@ -4,116 +4,70 @@ require "krash/hoptoad_parser"
 describe Krash::HoptoadParser do
   describe "A new exception object" do
     before(:all) do
-      @parser = Krash::HoptoadParser.new(old_exception_xml)
+      @parser = Krash::HoptoadParser.new(exception_xml)
     end
     
     describe "Exception data" do
-      it "should return correct class" do
-        @parser.exception[:class].should == "ActionView::TemplateError"
+      it "should return the api_key" do
+        @parser.application.should == "76fdb93ab2cf276ec080671a8b3d3866"
       end
       
-      it "should return correct message" do
-        @parser.exception[:message].should == "ActionView::TemplateError: private method `gsub' called for nil:NilClass"
+      it "should return class" do
+        @parser.exception[:class].should == "RuntimeError"
+      end
+      
+      it "should return message" do
+        @parser.exception[:message].should == "RuntimeError: I've made a huge mistake"
       end
       
       it "should return backtrace" do
-        @parser.exception[:backtrace].should == 'Backtrace'
+        @parser.exception[:backtrace].should match(/models\/user.rb/)
       end
       
       it "should return request" do
-        @parser.exception[:request].should == "Request"
+        @parser.exception[:request].should match(/Mozilla/)
       end
       
       it "should return environment" do
-        @parser.exception[:environment].should == "production"
+        @parser.exception[:environment].should match(/production/)
       end
-      
-      it "should return file" do
-        @parser.exception[:file].should == "On line #6 of stories/_content.html.erb"
-      end
-      
-      it "should return controller" do
-        @parser.exception[:controller].should == "magic"
-      end
-      
-      it "should return action" do
-        @parser.exception[:action].should == "index"
-      end
-    end
-  end
-  
-  describe "Receiving a new exception" do
-    before(:all) do
-      @parser = Krash::HoptoadParser.new(new_exception_xml)
-    end
-    
-    it "should notice its a new error" do
-      @parser.new?.should be_true
-    end
-  end
-  
-  describe "Receiving an old exception" do
-    before(:all) do
-      @parser = Krash::HoptoadParser.new(old_exception_xml)
-    end
-    
-    it "should notice its an old error" do
-      @parser.new?.should be_false
     end
   end
   
   private
   
-  def new_exception_xml
-    %{<group> 
-      <action>index</action> 
-      <controller>magic</controller> 
-      <created-at type="datetime">2009-01-27T11:36:27Z</created-at> 
-      <error-class>Mysql::Error</error-class> 
-      <error-message>Mysql::Error: Lost connection to MySQL server during query</error-message> 
-      <file>[GEM_ROOT]/gems/activerecord-2.1.0/lib/active_record/vendor/mysql.rb</file> 
-      <id type="integer">212912</id> 
-      <lighthouse-ticket-id type="integer" nil="true"></lighthouse-ticket-id> 
-      <line-number type="integer">1107</line-number> 
-      <most-recent-notice-at type="datetime">2009-01-27T11:36:26Z</most-recent-notice-at> 
-      <notice-hash>sssssaacssssss</notice-hash> 
-      <notices-count type="integer">1</notices-count> 
-      <project-id type="integer">1973</project-id> 
-      <rails-env>production</rails-env> 
-      <resolved type="boolean">false</resolved> 
-      <updated-at type="datetime">2009-03-24T21:26:56Z</updated-at> 
-      <environment></environment> 
-      <session></session> 
-      <request></request> 
-      <backtrace></backtrace> 
-    </group>
-    }
-  end
-  
-  def old_exception_xml
+  def exception_xml
     %{
-      <group> 
-        <action>index</action> 
-        <controller>magic</controller> 
-        <created-at type="datetime">2009-01-16T02:34:11Z</created-at> 
-        <error-class>ActionView::TemplateError</error-class> 
-        <error-message>ActionView::TemplateError: private method `gsub' called for nil:NilClass</error-message> 
-        <file>On line #6 of stories/_content.html.erb</file> 
-        <id type="integer">185188</id> 
-        <lighthouse-ticket-id type="integer" nil="true"></lighthouse-ticket-id> 
-        <line-number type="integer" nil="true"></line-number> 
-        <most-recent-notice-at type="datetime">2009-01-16T19:55:35Z</most-recent-notice-at> 
-        <notice-hash>307636c397776468278bc93b64717352</notice-hash> 
-        <notices-count type="integer">151</notices-count> 
-        <project-id type="integer">1973</project-id> 
-        <rails-env>production</rails-env> 
-        <resolved type="boolean">false</resolved> 
-        <updated-at type="datetime">2009-03-24T21:02:46Z</updated-at> 
-        <environment></environment> 
-        <session></session> 
-        <request>Request</request> 
-        <backtrace>Backtrace</backtrace> 
-      </group>
+      <?xml version="1.0" encoding="UTF-8"?>
+      <notice version="2.0">
+        <api-key>76fdb93ab2cf276ec080671a8b3d3866</api-key>
+        <notifier>
+          <name>Hoptoad Notifier</name>
+          <version>1.2.4</version>
+          <url>http://hoptoadapp.com</url>
+        </notifier>
+        <error>
+          <class>RuntimeError</class>
+          <message>RuntimeError: I've made a huge mistake</message>
+          <backtrace>
+            <line method="public" file="/testapp/app/models/user.rb" number="53"/>
+            <line method="index" file="/testapp/app/controllers/users_controller.rb" number="14"/>
+          </backtrace>
+        </error>
+        <request>
+          <url>http://example.com</url>
+          <component/>
+          <action/>
+          <cgi-data>
+            <var key="SERVER_NAME">example.org</var>
+            <var key="HTTP_USER_AGENT">Mozilla</var>
+          </cgi-data>
+        </request>
+        <server-environment>
+          <project-root>/testapp</project-root>
+          <environment-name>production</environment-name>
+        </server-environment>
+      </notice>
     }
   end
 end
