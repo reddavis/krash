@@ -24,5 +24,4 @@ module Krash
     end
     
   end
-
 end
