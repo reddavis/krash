@@ -17,7 +17,6 @@ describe Krash::App do
   describe "Good Request" do
     before { RunLater.run_now = true }
     
-    ## Receive Mock "memcached" received unexpected message :get ???
     describe "Exception does not already exist" do
       it "should call Krash.notify and save exception" do
         Krash::HoptoadException.stub!(:find_or_create_exception).and_return(false)
