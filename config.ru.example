@@ -6,6 +6,8 @@ require "krash/notifiers/sms"
 Krash.configure do
 
   set :access_key, "rt8sqwvu7b44rtx3xwqxxnvqxxn"
+  set :memcached_server, "localhost:11211"
+  
   use Krash::Notifiers::Codebase::Base do 
   
     priority_id 20658

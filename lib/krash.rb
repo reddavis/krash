@@ -43,5 +43,4 @@ module Krash
       notifier.notify(args)
     end
   end
-  
 end

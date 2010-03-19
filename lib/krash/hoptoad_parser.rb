@@ -22,6 +22,10 @@ module Krash
       }
     end
     
+    def memcached_key
+      (exception[:backtrace] + exception[:class]).gsub(/\W+/, '_')
+    end
+        
     def xml
       @xml ||= Nokogiri::XML(@data)
     end
