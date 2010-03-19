@@ -18,24 +18,19 @@ describe Krash::App do
     before { RunLater.run_now = true }
     
     ## Receive Mock "memcached" received unexpected message :get ???
-    #describe "Exception does not already exist" do
-    #  it "should call Krash.notify and save exception" do
-    #    memcached = mock('memcached')
-    #    Memcached.stub!(:new).and_return(memcached)
-    #    memcached.stub!(:get).and_return(false)
-    #    memcached.should_receive(:set)
-    #    Krash.should_receive(:notify)
-    #
-    #    post "/notifier_api/v2/notices", exception_xml('1111')
-    #    last_response.status.should == 200
-    #  end
-    #end
+    describe "Exception does not already exist" do
+      it "should call Krash.notify and save exception" do
+        Krash::HoptoadException.stub!(:find_or_create_exception).and_return(false)
+        Krash.should_receive(:notify)
+    
+        post "/notifier_api/v2/notices", exception_xml('1111')
+        last_response.status.should == 200
+      end
+    end
     
     describe "Exception already exists" do
       it "should not call Krash.notify" do
-        memcached = mock('memcached2')
-        Memcached.stub!(:new).and_return(memcached)
-        memcached.stub!(:get).and_return(true)
+        Krash::HoptoadException.stub!(:find_or_create_exception).and_return(true)
         Krash.should_not_receive(:notify)
       
         post "/notifier_api/v2/notices", exception_xml('1111')
